@@ -30,7 +30,7 @@ db.get(`SELECT COUNT(*) as count FROM BannerDetails`, (error, row) => {
 app.get('/api/banner', (req, res) => {
     db.get(`SELECT isVisible, description, timer FROM BannerDetails WHERE id = 1`, (error, row) => {
         if (error) res.json({error: error.message})
-        console.log(res.json(row));   
+        // console.log(res.json(row));   
     });
 })
 
