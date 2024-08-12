@@ -2,9 +2,13 @@ const express = require('express')
 const sqlite3 = require('sqlite3').verbose()
 const cors = require('cors')
 
+let corsOptions = {
+    origin : ['http://localhost:3001', 'https://banner-satya.netlify.app'],
+}
+
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors(corsOptions))
 
 // Initialize SQLite database
 const db = new sqlite3.Database('./banner.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE);
@@ -23,7 +27,7 @@ db.run(`CREATE TABLE IF NOT EXISTS BannerDetails (
 db.get(`SELECT COUNT(*) as count FROM BannerDetails`, (error, row) => {
     if (error) { console.error(error.message);
     } else if (row.count === 0) {
-        db.run(`INSERT INTO BannerDetails (isVisible, description, hour, minute, second) VALUES (?, ?, ?, ?, ?)`, [true, 'Hello Satyaprakash Here!', 0, 0, 60]);
+        db.run(`INSERT INTO BannerDetails (isVisible, description, hour, minute, second) VALUES (?, ?, ?, ?, ?)`, [true, 'Hello Satyaprakash Here!', 0, 0, 60])
     }
 });
 
@@ -33,7 +37,7 @@ app.get('/api/banner', (req, res) => {
     db.get(`SELECT isVisible, description, hour, minute, second FROM BannerDetails WHERE id = 1`, (error, row) => {
         if (error) res.json({error: error.message})
         res.json(row)
-    });
+    })
 })
 
 app.post('/api/banner/update', (req, res) => {
@@ -45,7 +49,7 @@ app.post('/api/banner/update', (req, res) => {
         WHERE id = 1` , 
         [isVisible, description, timer.h, timer.m, timer.s]
     )
-    res.json({success: "Data Updated Successfully!"})
+    res.json({success: "Banner Updated Successfully!"})
 })
 
 app.post('/api/banner/update/isVisible', (req, res) => {
@@ -53,7 +57,7 @@ app.post('/api/banner/update/isVisible', (req, res) => {
     db.run(`
         UPDATE BannerDetails
         SET isVisible = ?
-        WHERE id = 1` , 
+        WHERE id = 1`, 
         [isVisible]
     )
 })

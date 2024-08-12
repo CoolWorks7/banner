@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import useTimer from '../../hooks/useTimer'
 import './style.css'
 
-export default function Timer({setTimeOver}) {
+export default function Timer({setTimeOver, timeFromDB}) {
     const {time, startTime} = useTimer()
     const [timerStarted, setTimerStarted] = useState(false)
 
     useEffect(() => {
-        startTime(0, 0, 10)
+        startTime(timeFromDB)
         setTimerStarted(true)
     }, [0])
 

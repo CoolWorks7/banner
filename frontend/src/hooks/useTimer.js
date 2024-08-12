@@ -39,8 +39,8 @@ export default function useTimer() {
 
     return {
         time,
-        startTime: (h, m, s) => {
-            setTime({h, m, s})
+        startTime: (time) => {
+            setTime(time)
         }
     }
 }
