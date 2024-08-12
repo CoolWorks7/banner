@@ -1,0 +1,38 @@
+
+.input-box {
+    position: relative;
+    width: 100%;
+}
+.input-box input {
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    background: transparent;
+    border: 1.5px solid var(--txt-1);
+    background: var(--bg);
+    color:#333;
+    font-weight: 500;
+    width: 60px;
+}
+
+.input-box label {
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    font-size: 0.9rem;
+    color: var(--txt-1);
+    font-weight: 600;
+    padding: 0 0.25rem;
+    background: var(--bg);
+    pointer-events: none;
+    transition: all .3s ease;
+}
+
+.input-box input:focus-within ~ label,
+.input-box input:not(:placeholder-shown) ~ label{
+    top: -0.5rem;
+    font-size: 0.8rem;
+}

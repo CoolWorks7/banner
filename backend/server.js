@@ -14,34 +14,38 @@ db.run(`CREATE TABLE IF NOT EXISTS BannerDetails (
     id INTEGER PRIMARY KEY,
     isVisible BOOLEAN,
     description TEXT,
-    timer TEXT
+    hour INTEGER,
+    minute INTEGER,
+    second INTEGER
 )`)
 
 // Insert initial Banner Details if the table is empty
 db.get(`SELECT COUNT(*) as count FROM BannerDetails`, (error, row) => {
     if (error) { console.error(error.message);
     } else if (row.count === 0) {
-        db.run(`INSERT INTO BannerDetails (isVisible, description, timer) VALUES (?, ?, ?)`, [true, 'Hello Satyaprakash Here!', 60]);
+        db.run(`INSERT INTO BannerDetails (isVisible, description, hour, minute, second) VALUES (?, ?, ?, ?, ?)`, [true, 'Hello Satyaprakash Here!', 0, 0, 60]);
     }
 });
 
 
 // api routes
 app.get('/api/banner', (req, res) => {
-    db.get(`SELECT isVisible, description, timer FROM BannerDetails WHERE id = 1`, (error, row) => {
+    db.get(`SELECT isVisible, description, hour, minute, second FROM BannerDetails WHERE id = 1`, (error, row) => {
         if (error) res.json({error: error.message})
-        // console.log(res.json(row));   
+        res.json(row)
     });
 })
 
 app.post('/api/banner/update', (req, res) => {
     const {isVisible, description, timer} = req.body
+    
     db.run(`
         UPDATE BannerDetails
-        SET isVisible = ?, description = ?, timer = ? 
+        SET isVisible = ?, description = ?, hour = ?, minute = ?, second = ?
         WHERE id = 1` , 
-        [isVisible, description, timer]
+        [isVisible, description, timer.h, timer.m, timer.s]
     )
+    res.json({success: "Data Updated Successfully!"})
 })
 
 app.post('/api/banner/update/isVisible', (req, res) => {

@@ -17,6 +17,8 @@
   --imp: #04b043;
   --card: #ffda62;
   --card-txt: #5b4602; 
+  --border-2: #51afe4;
+  --imp-opaque: #04b04924;
   --width: clamp(40vw, 500px, 90vw);
 }
 
@@ -55,4 +57,53 @@ body {
   align-items: center;
   gap: 1rem;
   width: var(--width);
+}
+
+.bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.timer-container-dash {
+  display: flex;
+  gap: .5rem;
+}
+
+.primary-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  outline: none;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all .15s ease;
+}
+
+.primary-btn:hover {
+  color: var(--primary);
+  background: var(--bg);
+  /* opacity: .8; */
+  /* backdrop-filter: brightness(90%); */
+  outline: 1.5px solid var(--primary);
+  box-shadow: 0px 0px 10px #0003;
+}
+
+.top a.goto {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background: var(--imp-opaque);
+  color: var(--imp);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  gap: .5rem;
+  align-items: center;
 }
