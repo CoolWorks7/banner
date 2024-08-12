@@ -1,5 +1,6 @@
 import React from 'react'
 import './style.css'
+import HoverCard from '../hoverCard'
 
 export default function Switch({onn, handleClick}) {
   return (
@@ -8,9 +9,7 @@ export default function Switch({onn, handleClick}) {
             {onn? "ON" : "OFF"}
         </div> */}
         <div className="dot"></div>
-        <div className="hover">
-            Toggle Visibility
-        </div>
+        <HoverCard text={"Toggle Visibility"} />
     </div>
   )
 }

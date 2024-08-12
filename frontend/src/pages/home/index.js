@@ -1,26 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/header';
 import Options from '../../components/options';
-import useTimer from '../../hooks/useTimer';
+import Timer from '../../components/timer';
+import Banner from '../../components/banner';
 
 export default function Home() {
-    const {time, startTime} = useTimer()
-    
+    const [isVisible, setIsVisible] = useState(true)
+    const [timeOver, setTimeOver] = useState(false)
 
     useEffect(() => {
-        startTime(2, 30, 10)
         async function getData() {
             let res = await fetch("http://localhost:3000/api/banner")
             let data = await res.json()
             console.log(data);
-            
         }
 
         getData()
         
     }, [0])
 
-    console.log(time);
+    
+    // const timeElement = 
     
 
     // Loader
@@ -31,13 +31,12 @@ export default function Home() {
 
     return (
         <div className='container'>
-            <Header />
-            <Options />
-            <div>
-                {/* {time.h}
-                {time.m}
-                {time.s} */}
+            <div className='top'>
+                <Header title={"My Banner"}/>
+                {!timeOver && <Options isVisible={isVisible} setIsVisible={() => setIsVisible(prev => !prev)}/>}
             </div>
+            {!timeOver && isVisible && <Banner description={"Banner"}/>}
+            <Timer setTimeOver={() => setTimeOver(true)}/>
         </div>
     )
 }

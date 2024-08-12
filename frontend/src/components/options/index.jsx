@@ -3,14 +3,14 @@ import './style.css'
 import Switch from '../switch'
 import Slider from '../slider'
 
-export default function Options() {
-    const [switchBool, setSwitchBool] = useState(false)
+export default function Options({isVisible, setIsVisible}) {
+    // const [switchBool, setSwitchBool] = useState(false)
 
     return (
         <div className="options">
             {/* <Slider /> */}
 
-            <Switch onn={switchBool} handleClick={() => setSwitchBool(prev => !prev)}/>
+            <Switch onn={isVisible} handleClick={setIsVisible}/>
         </div>
     )
 }
