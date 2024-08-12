@@ -59,16 +59,17 @@ export default function Home({server, colorsArray}) {
                 </div>
                 {(!timeOver && data.isVisible != 0)? 
                     <Banner description={data.description} bgColorId={data.colorId} colorsArray={colorsArray}/> 
-                    :
-                    <div>
-                        <Confetti />
-                        <div className='thanks'>Thank You!</div>
-                        
-                        <div className='links'>
-                            <Link to="https://github.com/CoolWorks7"><FaGithub /></Link>
-                            <Link to="https://www.linkedin.com/in/satyaprakash-tiwari-b4b711262/"><FaLinkedin /></Link>
+                    : timeOver && <>
+                        <div>
+                            <Confetti />
+                            <div className='thanks'>Thank You!</div>
+                            
+                            <div className='links'>
+                                <Link to="https://github.com/CoolWorks7"><FaGithub /></Link>
+                                <Link to="https://www.linkedin.com/in/satyaprakash-tiwari-b4b711262/"><FaLinkedin /></Link>
+                            </div>
                         </div>
-                    </div>
+                    </>
                     
                 }
                 <Timer setTimeOver={() => setTimeOver(true)} timeFromDB={data.time}/>
