@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/header'
-import Options from '../../components/options'
 import './style.css'
 import TextBox from '../../components/textBox'
 import Input from '../../components/input'
@@ -8,10 +7,12 @@ import { Link } from 'react-router-dom'
 import { FaArrowRightLong } from "react-icons/fa6";
 import Loader from '../../components/loader'
 import Notice from '../../components/notice'
+import Switch from '../../components/switch'
 
-export default function Dashboard({server}) {    
+
+export default function Dashboard({server, colorsArray}) {    
     const [data, setData] = useState({
-        isVisible: false, description: '', time: {h: 0, m: 0, s: 0}
+        isVisible: false, description: '', time: {h: 0, m: 0, s: 0}, colorId: ''
     })
     const [loaded, setLoaded] = useState(false)
     const [updating, setUpdating] = useState(false)
@@ -29,7 +30,8 @@ export default function Dashboard({server}) {
                     h: data.hour,
                     m: data.minute,
                     s: data.second
-                }
+                },
+                colorId: data.colorId
             })
             setLoaded(true)
         }
@@ -70,12 +72,22 @@ export default function Dashboard({server}) {
         })
     }
 
+    function handleColor(i) {
+        setData(prev => {
+            return {
+                ...prev,
+                colorId: i
+            }
+        })
+    }
+
     function handleSubmit(e) {
         e.preventDefault()
         updateData({
             isVisible: data.isVisible,
             description: data.description,
-            timer: data.time
+            timer: data.time,
+            colorId: data.colorId
         })
     }
 
@@ -99,12 +111,32 @@ export default function Dashboard({server}) {
 
     }
 
+
+    let colorsElement = colorsArray.map((color, i) => {        
+        return (
+            <div key={i} className={i == data.colorId? 'color active' : 'color'} style={{background: color}}
+                onClick={(e) => handleColor(i)}
+            ></div>
+        )
+    })
+
     return (
         <>
         <form className='top'>
             {loaded?  <>
                 <Header title={"Dashboard"} isDashboard={true}/>
-                <Options isVisible={data.isVisible} setIsVisible={handleVisible}/>
+
+                <div className='options'>
+                    <div className='colors'>
+                        <p>Banner Color</p>
+                        {colorsElement}
+                    </div>
+                </div>
+
+                <div className="options f-e">
+                    <Switch onn={data.isVisible} handleClick={handleVisible}/>
+                </div>
+
                 <TextBox placeholder={'Description'} value={data.description} handleDescription={handleDescription}/>
                 
                 <div className='bottom'>

@@ -5,11 +5,11 @@
     transform: translateX(-50%) translateY(-100%) scale(0);
     background: var(--secondary);
     border-radius: 5px;
-    font-size: 0.7rem;
+    font-size: 0.85rem;
     font-weight: 500;
     color: var(--txt-2);
     white-space: nowrap;
-    padding: 0.4rem;
+    padding: 0.5rem;
     opacity: 0;
     transition: all .3s ease;
     pointer-events: none;
@@ -18,11 +18,35 @@
 .hover::before {
     content: '';
     position: absolute;
-    top: -.4rem;
-    left: 50%;
-    transform: translateX(-50%);
     height: .4rem;
     width: 1rem;
     background: var(--secondary);
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.hover.center {
+    left: 50%;
+}
+.hover.center::before {
+    top: -.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.hover.left {
+    /* transform: translateX(-50%) translateY(-100%) scale(0); */
+}
+.hover.left::before {
+    top: -.4rem;
+    left: 85%;
+    transform: translateX(-50%);
+}
+
+.hover.right {
+    /* left: 135%; */
+}
+.hover.right::before {
+    top: -.4rem;
+    left: 15%;
+    transform: translateX(-50%);
 }

@@ -19,7 +19,8 @@ export default function Timer({setTimeOver, timeFromDB}) {
     }, [time])
 
     function checkLength(t) {
-        return t.toString().length == 1? "0" + t : t
+        // return t.toString().length == 1? "0" + t : t
+        return t
     }
 
     

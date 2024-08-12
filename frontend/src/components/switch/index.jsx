@@ -9,7 +9,7 @@ export default function Switch({onn, handleClick}) {
             {onn? "ON" : "OFF"}
         </div> */}
         <div className="dot"></div>
-        <HoverCard text={"Toggle Visibility"} />
+        <HoverCard text={"Toggle Visibility"} align={"left"}/>
     </div>
   )
 }

@@ -13,7 +13,7 @@ export default function Header({title, isDashboard}) {
       {!isDashboard && <Link to="/dashboard">
         <div className='dash-btn'>
           <MdDashboard />
-          <HoverCard text={"Dashboard"} />
+          <HoverCard text={"Dashboard"} align={"right"}/>
         </div>
       </Link>}
       <header>{title}</header>

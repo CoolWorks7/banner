@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/header';
-import Options from '../../components/options';
 import Timer from '../../components/timer';
 import Banner from '../../components/banner';
 import Loader from '../../components/loader';
+import Switch from '../../components/switch';
+import Confetti from 'react-confetti'
+import { FaGithub } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
-export default function Home({server}) {
+export default function Home({server, colorsArray}) {    
     const [data, setData] = useState({
-        isVisible: false, description: '', time: {h: 0, m: 0, s: 0}
+        isVisible: false, description: '', time: {h: 0, m: 0, s: 0}, colorId: ''
     })
     const [timeOver, setTimeOver] = useState(false)
     const [loaded, setLoaded] = useState(false)
@@ -24,7 +28,8 @@ export default function Home({server}) {
                     h: data.hour,
                     m: data.minute,
                     s: data.second
-                }
+                },
+                colorId: data.colorId
             })
             setLoaded(true)
         }
@@ -46,9 +51,26 @@ export default function Home({server}) {
             {loaded? <>
                 <div className='top'>
                     <Header title={"My Banner"}/>
-                    {!timeOver && <Options isVisible={data.isVisible} setIsVisible={handleVisible}/>}
+                    {!timeOver && <>
+                        <div className="options f-e">
+                            <Switch onn={data.isVisible} handleClick={handleVisible}/>
+                        </div>
+                    </>}
                 </div>
-                {!timeOver && data.isVisible != 0 && <Banner description={data.description}/>}
+                {(!timeOver && data.isVisible != 0)? 
+                    <Banner description={data.description} bgColorId={data.colorId} colorsArray={colorsArray}/> 
+                    :
+                    <div>
+                        <Confetti />
+                        <div className='thanks'>Thank You!</div>
+                        
+                        <div className='links'>
+                            <Link to="https://github.com/CoolWorks7"><FaGithub /></Link>
+                            <Link to="https://www.linkedin.com/in/satyaprakash-tiwari-b4b711262/"><FaLinkedin /></Link>
+                        </div>
+                    </div>
+                    
+                }
                 <Timer setTimeOver={() => setTimeOver(true)} timeFromDB={data.time}/>
             </> : <Loader />}
         </div>
